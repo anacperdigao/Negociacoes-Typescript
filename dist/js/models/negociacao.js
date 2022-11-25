@@ -2,32 +2,21 @@
 // Eu poderia usar a tralha antes dos atributos, mas seria mais usado no JS.
 // No TS é melhor usar a forma private, e por convenção, não é obrigação, se coloca underline antes do atributo
 // já pra indicar que é privado.
-// O CÓDIGO ANTIGO ESTARÁ EMBAIXO NO CÓDIGO NOVO
+// OS CÓDIGOS ANTIGOS ESTARÃO EMBAIXO NO CÓDIGO NOVO
 //------------------------------------------ CÓDIGO NOVO REFATORADO
-// Se no construtor da sua classe você coloca o modificador private, explicita isso, ou public, isso indica
-// para o TypeScript que ele vai por debaixo dos panos criar uma propriedade da sua classe que contenha o 
-// mesmo nome do seu com os parâmetros do construtor, e por debaixo dos panos ele vai fazer a atribuição, 
-// vai pegar esse valor e vai jogar lá para você.
+// Aqui eu vou passar todo mundo pra public e depois atribuir o read only, ou seja, nao vou precisar de getters
+// pq todo mundo vai poder ver, mas o read only vai travar pra ninguem mexer em nada depois de criada.
 export class Negociacao {
-    constructor(_data, _quantidade, _valor) {
-        this._data = _data;
-        this._quantidade = _quantidade;
-        this._valor = _valor;
-    }
-    get data() {
-        return this._data;
-    }
-    get quantidade() {
-        return this._quantidade;
-    }
-    get valor() {
-        return this._valor;
+    constructor(data, quantidade, valor) {
+        this.data = data;
+        this.quantidade = quantidade;
+        this.valor = valor;
     }
     get volume() {
-        return this._quantidade * this._valor;
+        return this.quantidade * this.valor;
     }
 }
-//----------------------------------------------- CÓDIGO ANTIGO
+//----------------------------------------------- CÓDIGO ANTIGO 1
 // export class Negociacao {
 //     private _data: Date;
 //     private _quantidade: number;
@@ -38,6 +27,30 @@ export class Negociacao {
 //         this._valor = valor;
 //     }
 //     // Vou criar getters para poder enxergar os atributos, uma vez que eu fiz eles privados com a tralha #
+//     get data(): Date {
+//         return this._data;
+//     }
+//     get quantidade(): number {
+//         return this._quantidade;
+//     }
+//     get valor(): number {
+//         return this._valor;
+//     }
+//     get volume(): number {
+//         return this._quantidade * this._valor;
+//     }
+// }
+//------------------------------------------ CÓDIGO ANTIGO 2
+// Se no construtor da sua classe você coloca o modificador private, explicita isso, ou public, isso indica
+// para o TypeScript que ele vai por debaixo dos panos criar uma propriedade da sua classe que contenha o 
+// mesmo nome do seu com os parâmetros do construtor, e por debaixo dos panos ele vai fazer a atribuição, 
+// vai pegar esse valor e vai jogar lá para você.
+// export class Negociacao {
+//     constructor(
+//         private _data: Date, 
+//         private _quantidade: number, 
+//         private _valor: number
+//     ){}
 //     get data(): Date {
 //         return this._data;
 //     }
