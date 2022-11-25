@@ -7,13 +7,20 @@
 // Aqui eu vou passar todo mundo pra public e depois atribuir o read only, ou seja, nao vou precisar de getters
 // pq todo mundo vai poder ver, mas o read only vai travar pra ninguem mexer em nada depois de criada.
 export class Negociacao {
-    constructor(data, quantidade, valor) {
-        this.data = data;
+    constructor(_data, quantidade, valor) {
+        this._data = _data;
         this.quantidade = quantidade;
         this.valor = valor;
     }
     get volume() {
         return this.quantidade * this.valor;
+    }
+    // Aqui ta dando um problema que mesmo sendo private ou read only, eu consigo mudar a data atraves de métodos,
+    // (não consigo mudar apenas por atribuição), entao eu vou criar uma cópia da data, e quem tentar mudar,
+    // vai mudar a cópia, e nao a original.
+    get data() {
+        const data = new Date(this._data.getTime());
+        return data;
     }
 }
 //----------------------------------------------- CÓDIGO ANTIGO 1

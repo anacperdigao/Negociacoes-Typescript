@@ -12,13 +12,21 @@
 export class Negociacao {
     
     constructor(
-        public readonly data: Date, 
+        private _data: Date, 
         public readonly quantidade: number, 
         public readonly valor: number
     ){}
 
     get volume(): number {
         return this.quantidade * this.valor;
+    }
+
+    // Aqui ta dando um problema que mesmo sendo private ou read only, eu consigo mudar a data atraves de métodos,
+    // (não consigo mudar apenas por atribuição), entao eu vou criar uma cópia da data, e quem tentar mudar,
+    // vai mudar a cópia, e nao a original.
+    get data(): Date {
+        const data = new Date(this._data.getTime())
+        return data;
     }
 }
 
